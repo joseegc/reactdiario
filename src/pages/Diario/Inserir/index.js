@@ -23,10 +23,9 @@ export default function Inserir() {
 
     async function buscarPorId() {
         let resp = await axios.get('http://localhost:3010/diario/' + id);
-
         setTextoAnotacao(resp.data.textoAnotacao);
-        setDataAnotacao(resp.data.dataAnotacao.substr(0, 10));
-        setAutor(resp.data.autor);
+        setDataAnotacao(resp.data.dataAnotacao.substr(0,10));
+        setAutor(resp.data.idAutor);
         
     }
     

@@ -5,11 +5,15 @@ import './index.scss'
 import { Link, useNavigate } from 'react-router-dom';
 
 
+
 export default function Consultar() {    
     const [lista, setLista] = useState([]);
 
     const navigate = useNavigate();
     
+    useEffect(() => {
+        buscar()
+    }, [])
 
     async function buscar() {
         let resp = await axios.get('http://localhost:3010/diario');
@@ -18,7 +22,7 @@ export default function Consultar() {
     }
 
     async function excluir(id) {
-        let resp = await axios.delete('http://localhost:3010/diario/' + id);
+        await axios.delete('http://localhost:3010/diario/' + id);
         alert('Registro excluído');
 
         await buscar();
@@ -32,7 +36,6 @@ export default function Consultar() {
             <h1> Diário </h1>
 
             <h1> Anotações no Diário </h1>
-            <button onClick={buscar}> Buscar </button>
 
             <table>
                 <thead>
@@ -53,10 +56,10 @@ export default function Consultar() {
                             <td>{new Date(item.dataAnotacao).toLocaleDateString()}</td>
                             <td>{item.autor}</td>
                             <td>
-                                <button onClick={() => navigate('/listanegra/inserir/' + item.id) }>Alterar</button>
+                                <button onClick={() => navigate('/diario/inserir/' + item.idAnotacao) }>Alterar</button>
                             </td>
                             <td>
-                                <button onClick={() => excluir(item.id)}>Excluir</button>
+                                <button onClick={() => excluir(item.idAnotacao)}>Excluir</button>
                             </td>
                         </tr>
                     )}
